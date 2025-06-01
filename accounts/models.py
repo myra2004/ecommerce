@@ -16,7 +16,6 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     address = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    is_email_verified = models.BooleanField(default=False) # it s for email verification
 
     objects = UserManager()
 

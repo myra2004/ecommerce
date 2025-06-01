@@ -2,13 +2,13 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
 
-def send_password_reset_email(user, email, token):
+def send_password_reset_email(user, token):
     subject = 'Reset your password'
-    to_email = email
+    to_email = user.email
     context = {
         'user': user,
         'token': token,
-        'frontend_url': "voocomerce.com"
+        'frontend_url': settings.FRONTEND_URL,
     }
     html_content = render_to_string('reset_password_email.html', context)
     email = EmailMessage(subject, html_content, to=[to_email])

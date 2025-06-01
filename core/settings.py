@@ -13,6 +13,9 @@ from datetime import timedelta
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import certifi
+import ssl
+
 
 load_dotenv()
 
@@ -190,5 +193,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = False  # Важно: True — если PORT = 465, False — если PORT = 587
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Gmail адрес
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Gmail пароль или App Password
+
+EMAIL_TIMEOUT = 3600

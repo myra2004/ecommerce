@@ -10,7 +10,7 @@ from accounts.api_endpoints import (
     ProfileUpdateAPIView,
     ProfileDeleteAPIView,
     RequestPasswordResetView,
-    PasswordResetConfirmAPIView, VerifyEmailAPIView
+    PasswordResetConfirmAPIView
 )
 
 urlpatterns = [
@@ -27,5 +27,4 @@ urlpatterns = [
 
     path('password-reset/', RequestPasswordResetView.as_view(), name="password-reset"),
     path('password-reset/confirm/', PasswordResetConfirmAPIView.as_view(), name="password-reset-confirm"),
-    path('register/', VerifyEmailAPIView.as_view(), name='registration')
 ]
