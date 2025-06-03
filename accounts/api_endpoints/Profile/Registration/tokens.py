@@ -2,7 +2,7 @@ from django.utils import timezone
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 from django.conf import settings
 
-signer = TimestampSigner(salt='password-reset')
+signer = TimestampSigner(salt='verify-email')
 
 TOKEN_EXPIRY_SECONDS = 3600
 

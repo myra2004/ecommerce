@@ -1,13 +1,10 @@
-from django.utils.http import urlsafe_base64_decode
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.models import User
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
 from accounts.api_endpoints.Profile.Registration.send_email import send_verify_email
-from accounts.api_endpoints.Profile.Registration.serializer import RegisterSerializer
+from accounts.api_endpoints.Profile.Registration.serializer import RegisterSerializer, VerifyEmailSerializer
 from accounts.models import User
 
 
@@ -31,15 +28,13 @@ class RegisterView(APIView):
 
 
 class VerifyEmailView(APIView):
-    def get(self, request, uidb64, token):
-        try:
-            uid = urlsafe_base64_decode(uidb64).decode()
-            user = User.objects.get(pk=uid)
-        except (User.DoesNotExist, ValueError):
-            return Response({'error': 'Invalid link'}, status=status.HTTP_400_BAD_REQUEST)
+    permission_classes = []
 
-        if default_token_generator.check_token(user, token):
-            user.is_active = True
-            user.save()
-            return Response({'message': 'Email verified successfully!'}, status=status.HTTP_200_OK)
-        return Response({'error': 'Invalid or expired token'}, status=status.HTTP_400_BAD_REQUEST)
+    @swagger_auto_schema(
+        request_body=VerifyEmailSerializer,
+    )
+    def post(self, request):
+        serializer = VerifyEmailSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"detail": "Account is created succesfully."}, status=200)

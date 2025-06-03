@@ -1,51 +1,10 @@
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import send_mail
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
 from accounts.models import User
 from core import settings
-
-
-# class RegisterSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = [
-#             "email",
-#             "password",
-#         ]
-#
-#     def validate_email(self, value):
-#         if User.objects.filter(email=value).exists():
-#             raise serializers.ValidationError("Email is already in use")
-#         return value
-#
-#
-#     def create(self, validated_data):
-#
-#         user = User.objects._create_user(
-#             email=validated_data["email"],
-#             password=validated_data["password"],
-#         )
-#         user.is_active = False
-#         user.save()
-#
-#         self.context['send_email'](user)
-#
-#
-#
-#         # Email yuborish
-#         send_mail(
-#             "Verify your email",
-#             f"Click here to verify your account: {verify_url}",
-#             settings.DEFAULT_FROM_EMAIL,
-#             [user.email],
-#             fail_silently=False,
-#         )
-#
-#         return user
+from .tokens import *
 
 
 class RegisterSerializer(serializers.Serializer):
@@ -55,8 +14,6 @@ class RegisterSerializer(serializers.Serializer):
     def validate_email(self, value):
         if User.objects.filter(email=value, is_active=True).exists():
             raise serializers.ValidationError("Email is already in use")
-        #hash password dhango
-
         return value
 
 
@@ -71,13 +28,31 @@ class RegisterSerializer(serializers.Serializer):
             user.save()
         else:
             user = User.objects._create_user(email=email, password=password)
-            user.is_active = False  # Important: stay inactive until email confirmed
+            user.is_active = False
             user.save()
 
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-        token = default_token_generator.make_token(user)
+        token = generate_email_token(user)
 
-        verify_url = f"http://localhost:8000/accounts/verify-email/{uid}/{token}/"
+        verify_url = f"http://localhost:8000/accounts/verify-email/{token}/"
         self.context['send_email'](user, token, verify_url)
 
         return user
+
+
+class VerifyEmailSerializer(serializers.Serializer):
+    token = serializers.CharField()
+    new_password = serializers.CharField(write_only=True)
+
+    def validate(self, attrs):
+        user_id = verify_email_token(attrs["token"])
+        print(">>>", user_id)
+        if not user_id:
+            raise serializers.ValidationError("Invalid or expired token.")
+        self.user = User.objects.get(pk=user_id)
+        validate_password(attrs["new_password"], self.user)
+        return attrs
+
+    def save(self):
+        self.user.is_active = True
+        self.user.set_password(self.validated_data["new_password"])
+        self.user.save()
