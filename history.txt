@@ -1,0 +1,16 @@
+ 1093  pip install django
+ 1094  python3 manage.py runserver 8001
+ 1095  pip install python-dotenv
+ 1096  python3 manage.py runserver 8001
+ 1097  python3 manage.py runserver 8001
+ 1098  python3 manage.py runserver 8001
+ 1099  python3 manage.py runserver 8001
+ 1100  python3 manage.py runserver 8001
+ 1101  clear
+ 1102  python3 manage.py runserver 8001
+ 1103  clear
+ 1104  python3 manage.py runserver 8001
+ 1105  ping smtp.gmail.com\n
+ 1106  python3 manage.py runserver 8001
+ 1107  python3 manage.py runserver 8001
+ 1108  history > terminal_history.txt    \n

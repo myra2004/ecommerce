@@ -1,9 +1,3 @@
- 1094  pip install -r requirements.txt\n
- 1095  pip show djangorestframework\n
- 1096  python3 manage.py makemigrations
- 1097  python3 manage.py migrate
- 1098  /Applications/Python\ 3.x/Install\ Certificates.command\n
- 1099  which python3\npython3 --version\n
  1100  pip install --upgrade certifi\n
  1101  export SSL_CERT_FILE=$(python3 -m certifi)\n
  1102  pip install -r requirements.txt\n
@@ -14,3 +8,9 @@
  1107  history\n
  1108  history | grep python\n
  1109  history | tail -n 10\n
+ 1110  history > terminal_history.txt\n
+ 1111  pip freeze > requirements.txt
+ 1112  git add .
+ 1113  git git commit -m 'reset email_settings'
+ 1114  git commit -m 'reset email_settings'
+ 1115  git push origin main
