@@ -1,4 +1,4 @@
-from .LoginSession.views import SessionLoginAPIView
+from .LoginSession import *
 from .LogoutSession.views import SessionLogoutAPIView
 from .CartItemList.views import CartItemListAPIView
 from .CartCreate.views import CartItemCreateAPIView

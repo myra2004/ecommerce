@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import FormView
 
 from accounts.api_endpoints import (
     CartItemListAPIView,
@@ -14,6 +15,8 @@ from accounts.api_endpoints import (
     VerifyEmailView,
     RegisterView
 )
+from .api_endpoints.LoginSession import login_form
+from .views import *
 
 urlpatterns = [
     path('login/', SessionLoginAPIView.as_view(), name="login-session"),
@@ -31,4 +34,7 @@ urlpatterns = [
     path('password-reset/confirm/', PasswordResetConfirmAPIView.as_view(), name="password-reset-confirm"),
     path('verify-email/', VerifyEmailView.as_view(), name="verify-email"),
     path('register/', RegisterView.as_view(), name="register"),
+
+    #Form
+    path('login-form/', login_form, name="login-form"),
 ]
