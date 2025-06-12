@@ -61,3 +61,9 @@ static_media_urls = (
 )
 
 urlpatterns += static_media_urls
+
+
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        re_path(r'^rosetta/', include('rosetta.urls')),
+    ]

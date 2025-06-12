@@ -15,6 +15,7 @@ import os
 from dotenv import load_dotenv
 import certifi
 import ssl
+from django.utils.translation import gettext_noop as _
 
 
 load_dotenv()
@@ -66,6 +67,7 @@ EXTERNAL_APPS = [
     'rest_framework',
     'drf_yasg',
     'jazzmin',
+    'rosetta',
 ]
 
 INSTALLED_APPS = EXTERNAL_APPS + DJANGO_APPS + LOCAL_APPS
@@ -78,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -198,3 +201,16 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Gmail адрес
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Gmail пароль или App Password
 
 EMAIL_TIMEOUT = 3600
+
+
+# I18n
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('uz', _('Uzbel')),
+    ('ru', _('Russian'))
+]
+
+LOCAL_PATHS = [
+    BASE_DIR / 'local',
+]
