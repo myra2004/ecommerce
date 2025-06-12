@@ -15,7 +15,7 @@ import os
 from dotenv import load_dotenv
 import certifi
 import ssl
-from django.utils.translation import gettext_noop as _
+from django.utils.translation import gettext_lazy as _
 
 
 load_dotenv()
