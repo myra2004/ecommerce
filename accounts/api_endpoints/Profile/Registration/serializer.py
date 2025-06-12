@@ -41,7 +41,6 @@ class RegisterSerializer(serializers.Serializer):
 
 class VerifyEmailSerializer(serializers.Serializer):
     token = serializers.CharField()
-    new_password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
         user_id = verify_email_token(attrs["token"])

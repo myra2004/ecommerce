@@ -15,7 +15,7 @@ from accounts.api_endpoints import (
     VerifyEmailView,
     RegisterView
 )
-from .api_endpoints.LoginSession import login_form
+from products.api_endpoints import UserReviewsListAPIView, UserCommentsListAPIView
 from .views import *
 
 urlpatterns = [
@@ -35,6 +35,7 @@ urlpatterns = [
     path('verify-email/', VerifyEmailView.as_view(), name="verify-email"),
     path('register/', RegisterView.as_view(), name="register"),
 
-    #Form
-    path('login-form/', login_form, name="login-form"),
+    # Reviews, Comments
+    path('profile/reviews/', UserReviewsListAPIView.as_view(), name='user-reviews'),
+    path('profile/comments/', UserCommentsListAPIView.as_view(), name='user-comments'),
 ]

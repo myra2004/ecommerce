@@ -4,3 +4,4 @@ from .SizeCRUD import *
 from .BrandCRUD import *
 from .ColorCRUD import *
 from .ProductVariantsCRUD import *
+from .ReviewComment import *
