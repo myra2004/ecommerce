@@ -13,7 +13,7 @@ from accounts.api_endpoints import (
     RequestPasswordResetView,
     PasswordResetConfirmAPIView,
     VerifyEmailView,
-    RegisterView
+    RegisterView, SaveProductAPIView
 )
 from products.api_endpoints import UserReviewsListAPIView, UserCommentsListAPIView
 from .views import *
@@ -38,4 +38,7 @@ urlpatterns = [
     # Reviews, Comments
     path('profile/reviews/', UserReviewsListAPIView.as_view(), name='user-reviews'),
     path('profile/comments/', UserCommentsListAPIView.as_view(), name='user-comments'),
+
+    # Saved Products
+    path('product/save-unsave', SaveProductAPIView.as_view(), name='save-unsave-product'),
 ]

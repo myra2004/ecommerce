@@ -6,7 +6,7 @@ from products.models import Product, Review, Comment
 
 class ReviewDeleteAPIView(DestroyAPIView):
     queryset = Review.objects.all()
-    permission_classes = (IsAdminUser)
+    permission_classes = [IsAdminUser]
     lookup_field = 'id'
 
 
