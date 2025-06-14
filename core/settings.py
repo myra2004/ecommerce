@@ -214,3 +214,30 @@ LANGUAGES = [
 LOCAL_PATHS = [
     BASE_DIR / 'local',
 ]
+
+
+# Redis
+
+REDIS_HOST = os.getenv('REDIS_HOST', '127.0.0.1')
+REDIS_PORT = os.getenv('REDIS_PORT', '6379')
+REDIS_DB = os.getenv('REDIS_DB', '1')
+REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', None)
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            **({"PASSWORD": REDIS_PASSWORD} if REDIS_PASSWORD else {})
+        }
+    }
+}
+
+
+
+# CELERY settings
+
+CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}"
