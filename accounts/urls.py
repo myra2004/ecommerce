@@ -17,6 +17,7 @@ from accounts.api_endpoints import (
 )
 from products.api_endpoints import UserReviewsListAPIView, UserCommentsListAPIView
 from .views import *
+from .template_views import *
 
 urlpatterns = [
     path('login/', SessionLoginAPIView.as_view(), name="login-session"),
@@ -41,4 +42,9 @@ urlpatterns = [
 
     # Saved Products
     path('product/save-unsave', SaveProductAPIView.as_view(), name='save-unsave-product'),
+
+    #template_views
+    path("template/register/", RegisterTemplateView.as_view(), name="register-template"),
+    path("template/login/", LoginTemplateView.as_view(), name="login-template"),
+    path("template/profile/", ProfileTemplateView.as_view(), name="profile-template"),
 ]
