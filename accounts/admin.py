@@ -12,7 +12,7 @@ class CartItemInline(admin.TabularInline):
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    list_display = ("id", "email", "phone_number", "first_name", "last_name", "is_active", "is_staff")
+    list_display = ("id", "email", "phone_number", "first_name", "last_name", "is_active", "is_staff", 'is_confirmed')
     list_display_links = ("id", "email", "phone_number", "first_name", "last_name", 'is_confirmed')
     search_fields = ("email", "phone_number", "first_name", "last_name")
     list_filter = ("is_active", "is_staff")
