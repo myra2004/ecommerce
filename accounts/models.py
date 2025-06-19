@@ -34,7 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
 
 
 class Cart(BaseModel):
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='cart')
 
     def __str__(self):
         return str(self.user)

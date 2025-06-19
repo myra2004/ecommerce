@@ -60,12 +60,10 @@ class ShopCart(TemplateView):
         cart_items = CartItem.objects.filter(cart=self.request.user).annotate(
             total_amount = models.F('quantity') * models.F('product__price')
         )
-        total_amount = sum(item.total_amount for item in cart_items)
 
         context = super().get_context_data(**kwargs)
         context['title'] = 'VooCommerce | Shopping Cart'
         context['cart_items'] = cart_items
-        context['total_amount'] = total_amount
 
         return context
 
