@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from accounts.api_endpoints.Profile.Registration.send_email import send_verify_email
+from accounts.api_endpoints.email_send import send_email
 from accounts.api_endpoints.Profile.Registration.serializer import RegisterSerializer, VerifyEmailSerializer
 from accounts.models import User
 
@@ -16,7 +16,7 @@ class RegisterView(APIView):
 
     def post(self, request):
         serializer = RegisterSerializer(data=request.data, context={
-            'send_email': send_verify_email
+            'send_email': send_email
         })
         if serializer.is_valid():
             serializer.save()

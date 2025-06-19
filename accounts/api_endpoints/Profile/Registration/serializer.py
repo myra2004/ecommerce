@@ -1,10 +1,12 @@
+from re import template
+
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
 from accounts.models import User
 from core import settings
-from .tokens import *
+from accounts.tokens import *
 
 
 class RegisterSerializer(serializers.Serializer):
@@ -31,10 +33,16 @@ class RegisterSerializer(serializers.Serializer):
             user.is_active = False
             user.save()
 
-        token = generate_email_token(user)
+        token = generate_email_confirm_token(user)
 
-        verify_url = f"http://localhost:8000/accounts/verify-email/{token}/"
-        self.context['send_email'](user, token, verify_url)
+        self.context['send_email'](
+            subject = 'Create Your account',
+            intro_text='Click the link below to create your account.',
+            email=email,
+            template='send_verify_email.html',
+            token=token,
+            password=password,
+        )
 
         return user
 
@@ -43,7 +51,7 @@ class VerifyEmailSerializer(serializers.Serializer):
     token = serializers.CharField()
 
     def validate(self, attrs):
-        user_id = verify_email_token(attrs["token"])
+        user_id = verify_email_confirm_token(attrs["token"])
         print(">>>", user_id)
         if not user_id:
             raise serializers.ValidationError("Invalid or expired token.")

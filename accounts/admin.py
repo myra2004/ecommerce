@@ -13,14 +13,14 @@ class CartItemInline(admin.TabularInline):
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     list_display = ("id", "email", "phone_number", "first_name", "last_name", "is_active", "is_staff")
-    list_display_links = ("id", "email", "phone_number", "first_name", "last_name")
+    list_display_links = ("id", "email", "phone_number", "first_name", "last_name", 'is_confirmed')
     search_fields = ("email", "phone_number", "first_name", "last_name")
     list_filter = ("is_active", "is_staff")
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal_info'), {'fields': ('first_name', 'last_name', 'phone_number', 'avatar', 'bio')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_confirmed', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
     )
 
     add_fieldsets = (

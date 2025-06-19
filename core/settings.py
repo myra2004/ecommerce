@@ -201,7 +201,7 @@ EMAIL_USE_SSL = False  # Важно: True — если PORT = 465, False — е�
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Gmail адрес
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Gmail пароль или App Password
 
-EMAIL_TIMEOUT = 3600
+TOKEN_EXPIRY_SECONDS = 3600
 
 
 # I18n Language settings
