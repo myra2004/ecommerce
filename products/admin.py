@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 from products.models import ProductVariant, Product, Brand, Category, Size, Color, Review, Comment
 
@@ -14,6 +15,21 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'brand', 'category')
     search_fields = ('name', 'brand', 'category')
     list_editable = ('is_active',)
+
+    fieldsets = (
+        (_("Main"), {
+            'fields': ("brand", "category", "is_active")
+        }),
+        (_("Uzbek"), {
+            'fields': ('name_uz', 'description_uz',)
+        }),
+        (_("English"), {
+            'fields': ('name_en', 'description_en',)
+        }),
+        (_("Russian"), {
+            'fields': ('name_ru', 'description_ru',)
+        })
+    )
 
     inlines = [ProductVariantInline]
 

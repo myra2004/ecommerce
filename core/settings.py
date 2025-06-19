@@ -68,6 +68,7 @@ EXTERNAL_APPS = [
     'drf_yasg',
     'jazzmin',
     'rosetta',
+    'modeltranslation'
 ]
 
 INSTALLED_APPS = EXTERNAL_APPS + DJANGO_APPS + LOCAL_APPS
@@ -203,7 +204,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Gmail пароль и�
 EMAIL_TIMEOUT = 3600
 
 
-# I18n
+# I18n Language settings
 
 LANGUAGES = [
     ('en', _('English')),
@@ -215,14 +216,14 @@ LOCAL_PATHS = [
     BASE_DIR / 'local',
 ]
 
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+
 
 # Redis
 
 REDIS_HOST = os.getenv('REDIS_HOST', '127.0.0.1')
 REDIS_PORT = os.getenv('REDIS_PORT', '6379')
 REDIS_DB = os.getenv('REDIS_DB', '1')
-REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', None)
-
 
 CACHES = {
     "default": {
@@ -230,7 +231,6 @@ CACHES = {
         "LOCATION": f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            **({"PASSWORD": REDIS_PASSWORD} if REDIS_PASSWORD else {})
         }
     }
 }

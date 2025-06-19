@@ -16,9 +16,12 @@ class PasswordResetRequestSerializer(serializers.Serializer):
         return value
 
     def save(self):
+        # token = generate_password_reset_token(self.user)
+        # send_email_task = self.context['send_email'](self.user, token)
+        # send_email_task.delay()
         token = generate_password_reset_token(self.user)
-        send_email_task = self.context['send_email']
-        send_email_task.delay(self.user, token)
+        user_id = self.user.id
+        self.context['send_email'].delay(user_id, token)
 
 
 class PasswordResetConfirmSerializer(serializers.Serializer):
