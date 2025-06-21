@@ -57,7 +57,8 @@ class ShopCart(TemplateView):
     template_name = 'shoping-cart.html'
 
     def get_context_data(self, **kwargs):
-        cart_items = CartItem.objects.filter(cart=self.request.user).annotate(
+        cart=Cart.objects.filter(user=self.request.user)
+        cart_items = CartItem.objects.filter(cart=cart[0]).annotate(
             total_amount = models.F('quantity') * models.F('product__price')
         )
 

@@ -42,4 +42,9 @@ urlpatterns = [
     path('review/delete/<int:id>/', ReviewDeleteAPIView.as_view(), name='review-delete'),
     path('comment/create/', CommentCreateAPIView.as_view(), name='comment-create'),
     path('comment/delete/<int:id>/', CommentDeleteAPIView.as_view(), name='comment-delete'),
+
+    # Story
+    path('story/create/', StoryCreateAPIView.as_view(), name='story-create'),
+    path('story/delete/<int:id>/', StoryDeleteView.as_view(), name='story-delete'),
+    path('story/list/', StoryListAPIView.as_view(), name='story-list'),
 ]

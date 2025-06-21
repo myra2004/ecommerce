@@ -39,6 +39,10 @@ class Cart(BaseModel):
     def __str__(self):
         return str(self.user)
 
+    class Meta:
+        verbose_name = _('Cart')
+        verbose_name_plural = _('Carts')
+
 
 class CartItem(BaseModel):
     cart = models.ForeignKey(Cart, on_delete=models.RESTRICT, null=False, blank=False, related_name='cart_items')
@@ -47,3 +51,7 @@ class CartItem(BaseModel):
 
     def __str__(self):
         return f'CartItem({self.id})'
+
+    class Meta:
+        verbose_name = _('Cart Item')
+        verbose_name_plural = _('Cart Items')

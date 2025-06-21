@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from products.models import ProductVariant, Product, Brand, Category, Size, Color, Review, Comment
+from products.models import ProductVariant, Product, Brand, Category, Size, Color, Review, Comment, Story
 
 
 class ProductVariantInline(admin.TabularInline):
@@ -81,3 +81,10 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'user__email', 'product__name', 'text')
     list_display_links = ('id', 'user__email')
     search_fields = ('user__email',)
+
+
+@admin.register(Story)
+class StoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'product', 'is_active')
+    list_display_links = ('id', 'title', 'product')
+    search_fields = ('title',)
