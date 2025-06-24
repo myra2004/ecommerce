@@ -7,7 +7,7 @@ from products.models import Product, Story
 
 class StoryDeleteView(DestroyAPIView):
     queryset = Story.objects.all()
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
     lookup_field = 'id'
 
     def perform_destroy(self, instance):

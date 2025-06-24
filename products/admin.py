@@ -88,3 +88,7 @@ class StoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'product', 'is_active')
     list_display_links = ('id', 'title', 'product')
     search_fields = ('title',)
+
+    fieldsets = (
+        (_("Main"), {"fields": ("title", "product", "image")}),
+    )
