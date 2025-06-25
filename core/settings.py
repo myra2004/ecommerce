@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 import certifi
 import ssl
 from django.utils.translation import gettext_lazy as _
+from .constants import ACCESS_TOKEN_EXPIRE, REFRESH_TOKEN_EXPIRE
 
 
 load_dotenv()
@@ -25,8 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=600),  # 5 minutes
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=10),  # 1 day
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=ACCESS_TOKEN_EXPIRE),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=REFRESH_TOKEN_EXPIRE),
 }
 
 
@@ -119,6 +120,7 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
+        "ATOMIC_REQUESTS": True,
     }
 }
 
@@ -245,6 +247,7 @@ CACHES = {
 
 CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}"
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 
 JAZZMIN_SETTINGS = {
