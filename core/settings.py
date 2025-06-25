@@ -34,7 +34,7 @@ SIMPLE_JWT = {
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qj=01_e1+om-@uiup(b8b-#e$-ec(z-8#pg!*mm2*xk-nxram9'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
