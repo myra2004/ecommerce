@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='user',
-            name='saved_products',
+            name='saved_products.html',
             field=models.ManyToManyField(related_name='saved_by_users', to='products.product'),
         ),
         migrations.AddField(

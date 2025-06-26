@@ -7,8 +7,10 @@ from common.rediscache import RedisCacheMixin
 
 class SavedProductListAPIView(RedisCacheMixin, ListAPIView):
     serializer_class = SavedProductListSerializer
-    cache_key = 'saved-products'
     permission_classes = [IsAuthenticated]
+
+    def get_cache_key(self):
+        return f'saved-products-user-{self.request.user.id}'
 
     def get_queryset(self):
         return self.request.user.saved_products.all()

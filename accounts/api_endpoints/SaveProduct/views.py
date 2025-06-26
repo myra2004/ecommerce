@@ -9,23 +9,37 @@ from products.models import Product
 from .serializers import SaveProductSerializer
 
 
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
+from drf_yasg.utils import swagger_auto_schema
+from django.shortcuts import get_object_or_404
+
+from products.models import Product
+from .serializers import SaveProductSerializer  # путь подставь свой
+
 class SaveProductAPIView(APIView):
-    queryset = Product.objects.all()
-    serializer_class = SaveProductSerializer
     permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
         request_body=SaveProductSerializer
     )
     def post(self, request, *args, **kwargs):
-        if request.data.get('id'):
-            product = get_object_or_404(Product, id=request.data['id'])
+        product_id = request.data.get('id')
+        if not product_id:
+            return Response({'detail': 'Product ID is required'}, status=status.HTTP_400_BAD_REQUEST)
 
-            if product in self.request.user.saved_products.all():
-                self.request.user.saved_products.remove(product)
-            else:
-                self.request.user.saved_product.add(product)
+        product = get_object_or_404(Product, id=product_id)
 
-            return Response({'detail': 'Success!'}, status=status.HTTP_200_OK)
+        user = request.user  # user гарантированно есть, потому что IsAuthenticated
 
-        return Response('Success')
+        if product in user.saved_products.all():
+            user.saved_products.remove(product)
+            action = 'removed'
+        else:
+            user.saved_products.add(product)
+            action = 'added'
+
+        return Response({'detail': f'Product successfully {action} to saved list'}, status=status.HTTP_200_OK)
+

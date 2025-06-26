@@ -10,7 +10,6 @@ from common.rediscache import RedisCacheMixin
 class CartItemListAPIView(RedisCacheMixin, GenericAPIView):
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
-    cache_key = 'cart-items'
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
@@ -20,6 +19,9 @@ class CartItemListAPIView(RedisCacheMixin, GenericAPIView):
         serializer = self.get_serializer(self.get_queryset(), many=True)
 
         return Response(serializer.data)
+
+    def get_cache_key(self):
+        return f'cart-item-{self.request.user.id}'
 
 
 __all__ = ['CartItemListAPIView']

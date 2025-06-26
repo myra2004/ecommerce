@@ -55,3 +55,26 @@ class CartItem(BaseModel):
     class Meta:
         verbose_name = _('Cart Item')
         verbose_name_plural = _('Cart Items')
+#
+#
+# class SavedProduct(BaseModel):
+#     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='saved_product')
+#
+#     def __str__(self):
+#         return str(self.user)
+#
+#     class Meta:
+#         verbose_name = _('Saved Product')
+#         verbose_name_plural = _('Saved Products')
+#
+#
+# class SavedProductItems(BaseModel):
+#     saved_product = models.ForeignKey(SavedProduct, on_delete=models.RESTRICT, null=False, blank=False, related_name='saved_product_items')
+#     product = models.ForeignKey('products.ProductVariant', on_delete=models.RESTRICT, null=True, blank=True)
+#
+#     def __str__(self):
+#         return f'Saved Product Item {self.id}'
+#
+#     class Meta:
+#         verbose_name = _('Saved Product Item')
+#         verbose_name_plural = _('Saved Product Items')

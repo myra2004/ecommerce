@@ -96,3 +96,33 @@ class CheckoutPageView(TemplateView):
         return context
 
 
+class SavedProductsPageView(TemplateView):
+    template_name = 'saved_products_temolate.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'eCommerce | Saved Products'
+
+        # Все сохранённые продукты текущего пользователя
+        saved_products = self.request.user.saved_products.all()
+
+        # Находим варианты продуктов, связанных с сохранёнными продуктами
+        products = ProductVariant.objects.filter(product__in=saved_products)
+        product_data = []
+        for variant in products:
+            images = variant.images.all()
+            if not images.exists():
+                images = variant.product.default_images.all()
+
+            print(images[0].file.url)
+
+            product_data.append({
+                'variant_name': variant.name,
+                'product_name': variant.product.name,
+                'price': variant.price,
+                'images':  images[0].file,
+            })
+
+        context['products'] = product_data
+
+        return context
