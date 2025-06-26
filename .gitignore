@@ -18,4 +18,8 @@ __pycache__/
 .locale/
 locale/
 
+logs
+.logs
 
+debug.log
+.debug.log

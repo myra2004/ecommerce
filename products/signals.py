@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 @receiver(post_save, sender=Story)
 def story_post_save(sender, instance, created, **kwargs):
-    print("Signal is working!")
+    logger.debug('Signal is working')
     if created:
         expire_time = instance.created_at + timedelta(hours=STORY_EXPIRE_HOURS)
         args = [instance.id]
@@ -32,9 +32,3 @@ def story_post_save(sender, instance, created, **kwargs):
             one_off=True,
             args=args
         )
-
-
-@receiver(post_delete, sender=Story)
-def delete_story_related_objects(sender, instance, **kwargs):
-    instance.image.delete()
-    PeriodicTask.objects.filter(name=f"expire_story_{instance.id}").delete()
