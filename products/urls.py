@@ -47,4 +47,9 @@ urlpatterns = [
     path('story/create/', StoryCreateAPIView.as_view(), name='story-create'),
     path('story/delete/<int:id>/', StoryDeleteView.as_view(), name='story-delete'),
     path('story/list/', StoryListAPIView.as_view(), name='story-list'),
+
+    # Contact
+    path('contact/create/', ContactCreateAPIView.as_view(), name='contact-create'),
+    path('contact/list/', ContactListAPIView.as_view(), name='contact-list'),
+    path('contact/delete/<int:id>/', ContactDeleteAPIView.as_view(), name='contact-delete'),
 ]

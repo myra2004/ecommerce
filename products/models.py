@@ -130,3 +130,18 @@ class Story(BaseModel):
     class Meta:
         verbose_name = _("Story")
         verbose_name_plural = _("Stories")
+
+
+
+class Contact(BaseModel):
+    name = models.CharField(max_length=200, null=False, blank=False)
+    email = models.EmailField(null=False, blank=False)
+    message = models.TextField(null=False, blank=False)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'Contact({self.id})'
+
+    class Meta:
+        verbose_name = _("Contact")
+        verbose_name_plural = _("Contacts")

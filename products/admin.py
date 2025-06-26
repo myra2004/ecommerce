@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from products.models import ProductVariant, Product, Brand, Category, Size, Color, Review, Comment, Story
+from products.models import ProductVariant, Product, Brand, Category, Size, Color, Review, Comment, Story, Contact
 
 
 class ProductVariantInline(admin.TabularInline):
@@ -91,4 +91,17 @@ class StoryAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (_("Main"), {"fields": ("title", "product", "image")}),
+    )
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'email')
+    list_display_links = ('id', 'name', 'email')
+    search_fields = ('name', 'email')
+
+    fieldsets = (
+    (_("Main"), {
+        'fields': ("name", "email", "message",)
+    }),
     )

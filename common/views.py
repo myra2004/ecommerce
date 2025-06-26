@@ -1,11 +1,17 @@
 from celery.worker.state import total_count
-from django.views.generic import TemplateView
+from django.contrib import messages
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.views.generic import TemplateView, FormView
 from django.db import models
 
 from datetime import datetime, timedelta
 
-from products.models import Category, ProductVariant, Product
+from rest_framework.reverse import reverse_lazy
+
+from products.models import Category, ProductVariant, Product, Contact
 from accounts.models import User, Cart, CartItem
+from products.forms import ContactForm
 
 
 class HomePageView(TemplateView):
@@ -27,18 +33,14 @@ class HomePageView(TemplateView):
         return context
 
 
-class ContactPageView(TemplateView):
+class ContactPageView(FormView):
     template_name = 'contact.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('common:contact')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'VooCommerce | Contact Us'
-
-        users = User.objects.filter(
-            is_staff=False
-        )
-        context['users'] = users
-        return context
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 
 class ShopDetailsView(TemplateView):
