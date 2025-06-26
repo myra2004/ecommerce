@@ -1,3 +1,4 @@
+from celery.worker.state import total_count
 from django.views.generic import TemplateView
 from django.db import models
 
@@ -61,10 +62,36 @@ class ShopCart(TemplateView):
         cart_items = CartItem.objects.filter(cart=cart[0]).annotate(
             total_amount = models.F('quantity') * models.F('product__price')
         )
+        print(cart_items[0].product.images.all()[0].file.url)
+
+        images = cart_items[0].product.images.all()
+
+        cart_data = []
+
+        for cart_item in cart_items:
+            cart_item.images = images
+            cart_item.total_amount = cart_item.total_amount // 100
+            print(cart_item.total_amount)
+            if images.exists():
+                print(images[0].file.url)
+            else:
+                print("Нет изображений")
+
+        cart_data.append(
+            {
+                'product': cart_items[0].product.name,
+                'quantity': cart_items[0].quantity,
+                'total_amount': cart_items[0].total_amount,
+                'images': images[0].file.url,
+            }
+        )
+
 
         context = super().get_context_data(**kwargs)
         context['title'] = 'VooCommerce | Shopping Cart'
-        context['cart_items'] = cart_items
+        context['cart_items'] = cart_data
+
+        print(cart_data)
 
         return context
 

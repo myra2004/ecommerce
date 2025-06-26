@@ -44,11 +44,11 @@
                             {% for cart_item in cart_items %}
                                 <tr>
                                     <td class="shoping__cart__item">
-                                        <img height=50 width=50 src="{% if cart_item.product.product.default_image %}{{cart_item.product.product.default_image.url}}{% else %}{% static "img/default-image.jpg" %}{% endif %}" alt="">
-                                        <h5>{{ cart_item.product.name }}</h5>
+                                        <img height=50 width=50 src="{% if cart_item.images %}{{cart_item.images}}{% else %}{% static "img/default-image.jpg" %}{% endif %}" alt="">
+                                        <h5>{{ cart_item.name }}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        ${{ cart_item.product.price }}
+                                        ${{ cart_item.price }}
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
