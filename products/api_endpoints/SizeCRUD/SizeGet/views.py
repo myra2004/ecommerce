@@ -5,11 +5,13 @@ from rest_framework.generics import ListAPIView, GenericAPIView
 
 from products.models import Size
 from .serializers import SizeGetSerializer
+from common.rediscache import RedisCacheMixin
 
 
-class SizeListAPIView(ListAPIView):
+class SizeListAPIView(RedisCacheMixin, ListAPIView):
     queryset = Size.objects.all()
     serializer_class = SizeGetSerializer
+    cache_key = 'size-list'
 
     def get(self, request, *args, **kwargs):
         serializer = self.get_serializer(self.get_queryset(), many=True)

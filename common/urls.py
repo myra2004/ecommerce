@@ -18,7 +18,7 @@ urlpatterns = [
     path('blog/', BlogPageView.as_view(), name='blog'),
 
     # Media CRUD
-    path('mediafiles/list/', MediaFileGetAPIView.as_view(), name='category-list'),
-    path('mediafiles/create/', MediaFileCreateAPIView.as_view(), name='category-create'),
-    path('mediafiles/delete/<int:id>/', MediaFileDeleteAPIView.as_view(), name='category-delete'),
+    path('mediafiles/list/', MediaFileGetAPIView.as_view(), name='mediafile-list'),
+    path('mediafiles/create/', MediaFileCreateAPIView.as_view(), name='mediafile-create'),
+    path('mediafiles/delete/<int:id>/', MediaFileDeleteAPIView.as_view(), name='mediafile-delete'),
 ]

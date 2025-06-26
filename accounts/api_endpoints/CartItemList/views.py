@@ -4,11 +4,13 @@ from rest_framework.response import Response
 
 from .serializers import CartItemSerializer
 from accounts.models import CartItem
+from common.rediscache import RedisCacheMixin
 
 
-class CartItemListAPIView(GenericAPIView):
+class CartItemListAPIView(RedisCacheMixin, GenericAPIView):
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
+    cache_key = 'cart-items'
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):

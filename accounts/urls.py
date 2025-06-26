@@ -13,7 +13,7 @@ from accounts.api_endpoints import (
     RequestPasswordResetView,
     PasswordResetConfirmAPIView,
     VerifyEmailView,
-    RegisterView, SaveProductAPIView
+    RegisterView, SaveProductAPIView, SavedProductListAPIView
 )
 from products.api_endpoints import UserReviewsListAPIView, UserCommentsListAPIView
 from .views import *
@@ -47,4 +47,8 @@ urlpatterns = [
     path("template/register/", RegisterTemplateView.as_view(), name="register-template"),
     path("template/login/", LoginTemplateView.as_view(), name="login-template"),
     path("template/profile/", ProfileTemplateView.as_view(), name="profile-template"),
+
+    # Saved Products
+    path('saved_products/', SavedProductListAPIView.as_view(), name='saved-products'),
+    path('saved_products/create/', SaveProductAPIView.as_view(), name='saved-product-create'),
 ]
