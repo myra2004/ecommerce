@@ -17,7 +17,6 @@ class ProductAPITests(TestCase):
         self.user = User.objects.create_user(
             email='test@example.com',
             password='testpassword',
-            username='testuser'
         )
         self.client.force_authenticate(user=self.user)
         
@@ -107,7 +106,6 @@ class ReviewAPITests(TestCase):
         self.user = User.objects._create_user(
             email='test@example.com',
             password='testpassword',
-            username='testuser'
         )
         self.client.force_authenticate(user=self.user)
         
@@ -191,7 +189,6 @@ class CategoryAPITests(TestCase):
         self.user = User.objects.create_user(
             email='test@example.com',
             password='testpassword',
-            username='testuser'
         )
         self.client.force_authenticate(user=self.user)
         
@@ -218,7 +215,6 @@ class BrandAPITests(TestCase):
         self.user = User.objects.create_user(
             email='test@example.com',
             password='testpassword',
-            username='testuser'
         )
         self.client.force_authenticate(user=self.user)
         

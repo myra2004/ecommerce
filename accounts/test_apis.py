@@ -18,7 +18,6 @@ class LoginAPITests(TestCase):
         self.user = User.objects.create_user(
             email='test@example.com',
             password='testpassword',
-            username='testuser'
         )
         self.login_url = reverse('accounts:login')
         
@@ -54,7 +53,6 @@ class CartAPITests(TestCase):
         self.user = User.objects.create_user(
             email='test@example.com',
             password='testpassword',
-            username='testuser'
         )
         self.client.force_authenticate(user=self.user)
         

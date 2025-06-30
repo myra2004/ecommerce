@@ -27,7 +27,7 @@ class PasswordResetRequestSerializer(serializers.Serializer):
             intro_text = 'Please confirm your email address',
             email = self.email,
             token = token,
-            template = 'reset_password.email.html'
+            template = 'reset_password_email.html'
         )
 
 class PasswordResetConfirmSerializer(serializers.Serializer):

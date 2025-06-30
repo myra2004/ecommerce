@@ -19,7 +19,6 @@ class OrderAPITests(TestCase):
         self.user = User.objects.create_user(
             email='test@example.com',
             password='testpassword',
-            username='testuser'
         )
         self.client.force_authenticate(user=self.user)
         
@@ -119,7 +118,6 @@ class OrderAPITests(TestCase):
         admin_user = User.objects.create_user(
             email='admin@example.com',
             password='adminpassword',
-            username='adminuser',
             is_staff=True
         )
         
